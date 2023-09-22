@@ -1,0 +1,18 @@
+{
+  "auth": {
+    "enabled": true,
+    "token": "123321"
+  },
+  "log": {
+    "enable": false
+  },
+"serverPort": 4000,
+  "scripts": {
+    "resetDb": [
+      "/dao/install-base.sql",
+      "/dao/install-user.sql",
+      "/dao/install-country.sql",
+      "/dao/install-currency.sql"
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "super": {
+    "role": "crud",
+    "tenant": "crud",
+    "setting": "crud",
+    "user": "crud",
+    "session": "crud",
+    "country": "crud",
+    "install": "crud",
+    "currency": "crud",
+    "person": "crud",
+    "invoice": "crud"
+  },
+  "admin": {
+    "role": "crud",
+    "tenant": "r",
+    "setting": "crud",
+    "user": "crud",
+    "session": "r",
+    "country": "crud",
+    "install": "crud",
+    "currency": "crud",
+    "person": "crud",
+    "invoice": "crud"
+  },
+  "user": {
+    "role": "r",
+    "tenant": "r",
+    "setting": "r",
+    "user": "r",
+    "session": "r",
+    "country": "r",
+    "currency": "r",
+    "person": "crud",
+    "invoice": "crud"
+  },
+  "guest": {
+    "role": "r",
+    "tenant": "r",
+    "setting": "r",
+    "user": "r",
+    "session": "r",
+    "country": "r",
+    "currency": "r",
+    "person": "r",
+    "invoice": "r"
+  }
+}
