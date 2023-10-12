@@ -24,7 +24,7 @@ describe('login', () => {
     expect(response.body.data.user_id).toEqual(2);
     expect(response.body.data.user_name).toEqual('Admin User');
     expect(response.body.data.user_role).toEqual('admin');
-    expect(response.body.data.auth_access).toEqual('{\"role\":\"crud\",\"tenant\":\"r\",\"setting\":\"crud\",\"user\":\"crud\",\"session\":\"r\",\"country\":\"crud\",\"install\":\"crud\",\"currency\":\"crud\",\"person\":\"crud\",\"invoice\":\"crud\"}',);
+    expect(response.body.data.auth_access).toEqual('{\"role\":\"crud\",\"tenant\":\"r\",\"setting\":\"crud\",\"user\":\"crud\",\"session\":\"r\",\"country\":\"crud\",\"install\":\"crud\",\"currency\":\"crud\"}',);
     expect(response.body.data.auth_token).toEqual('123321');
   });
 });
@@ -111,7 +111,9 @@ describe('setting', () => {
       .set({ 'Authorization': '1:123321'});
 
       expect(response.status).toEqual(200);
-      expect(response.body.data[0].name).toEqual('en');
+      expect(response.body.data[0].key).toEqual('lang');
+      expect(response.body.data[0].value).toEqual('en');
+      expect(response.body.data[0].grp).toEqual('');
   });
 
   it('should create (post)', async  () => {
@@ -119,8 +121,9 @@ describe('setting', () => {
       .post('/api/setting')
       .set({ 'Authorization': '1:123321'})
       .send({
-        cod: 'test',
-        name: 'testName'
+        key: 'test',
+        value: 'testName',
+        grp: 'testGroup'
       });
     expect(response.status).toEqual(200);
   });
@@ -130,8 +133,9 @@ describe('setting', () => {
       .put('/api/setting')
       .set({ 'Authorization': '1:123321'})
       .send({
-        cod: 'test',
-        name: 'testName2',
+        key: 'test',
+        value: 'testName2',
+        grp: 'testGroup2'
       });
 
     expect(response.status).toEqual(200);
@@ -143,7 +147,8 @@ describe('setting', () => {
       .set({ 'Authorization': '1:123321'});
 
       expect(response.status).toEqual(200);
-      expect(response.body.data.name).toEqual('testName2');
+      expect(response.body.data.value).toEqual('testName2');
+      expect(response.body.data.grp).toEqual('testGroup2');
   });
 
   it('should delete', async () => {
@@ -355,6 +360,7 @@ describe('country', () => {
   });
 })
 
+
 describe('currency', () => {
 
   it('should get list', async () => {
@@ -364,8 +370,13 @@ describe('currency', () => {
       .set({ 'Authorization': '1:123321'});
 
     expect(response.status).toEqual(200);
+    expect(response.body.message).toEqual(undefined);
     expect(response.body.data[0].cod).toEqual('AED');
     expect(response.body.data[0].name).toEqual('United Arab Emirates dirham');
+    expect(response.body.data[0].active).toEqual(false);
+    expect(response.body.data[0].cod_numeric).toEqual(784);
+    expect(response.body.data[0].minorunit).toEqual(2);
+
   })
 
   it('should create (post)', async  () => {
@@ -375,12 +386,14 @@ describe('currency', () => {
       .send({
         cod: 'AAA',
         cod_numeric: 987,
-        name: 'AAA Dollar'
+        name: 'AAA Dollar',
+        source: 'Test'
       });
 
     expect(response.status).toEqual(200);
     expect(response.body.data.cod).toEqual('AAA');
     expect(response.body.data.name).toEqual('AAA Dollar');
+    expect(response.body.data.source).toEqual('Test');
   });
 
   it('should update (put)', async () => {
@@ -410,7 +423,7 @@ describe('currency', () => {
 
   it('should delete', async () => {
     const response = await request(app)
-      .delete('/api/country/AAA')
+      .delete('/api/currency/AAA')
       .set({ 'Authorization': '1:123321'});
 
     expect(response.status).toEqual(200);

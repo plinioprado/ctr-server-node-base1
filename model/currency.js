@@ -40,31 +40,39 @@ const format = {
     {
       name: 'cod_numeric',
       type: 'number',
-      default: '',
-      required: true,
+      default: 0,
       label: 'Numeric code',
       listPosition: 4,
       formPosition: 4,
-      fieldMd: 6
+      fieldMd: 4
     },
     {
-      name: 'digits',
+      name: 'minorunit',
       type: 'number',
       default: 2,
-      required: true,
-      label: 'Digits',
+      label: 'Minor unit',
       listPosition: 5,
       formPosition: 5,
-      fieldMd: 6
+      fieldMd: 4
+    },
+    {
+      name: 'source',
+      type: 'string',
+      default: '',
+      maxlength: 30,
+      label: 'Source',
+      listPosition: 0,
+      formPosition: 6,
+      fieldMd: 4
     },
     {
       name: 'countries',
       type: 'string',
       default: '',
       maxlength: 240,
-      label: 'Descr',
+      label: 'Countries',
       listPosition: 0,
-      formPosition: 6,
+      formPosition: 7,
       fieldMd: 12
     },
     {
@@ -72,7 +80,7 @@ const format = {
       type: 'string',
       default: '',
       maxlength: 240,
-      label: 'Descr',
+      label: 'Obs',
       listPosition: 0,
       formPosition: 7,
       fieldMd: 12

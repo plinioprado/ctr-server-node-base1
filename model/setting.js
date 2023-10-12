@@ -1,37 +1,45 @@
-const parentFormat = require('./role');
-
 const format = {
   listHeader: 'Roles',
   itemHeader: 'Role',
   columns: [
     {
-      name: 'cod',
+      name: 'key',
       listPosition: 1,
       formPosition: 1,
       type: 'string',
       primaryKey: true,
       default: '',
       required: true,
-      label: 'Cod',
-      fieldMd: 6,
+      label: 'Key',
+      fieldMd: 4,
       minlength: 3,
-      maxlength: 6
+      maxlength: 30
     },
     {
-      name: 'name',
+      name: 'value',
       listPosition: 2,
       formPosition: 2,
       type: 'string',
       default: '',
       required: true,
-      label: 'Name',
-      fieldMd: 6,
+      label: 'Value',
+      fieldMd: 4,
+      maxlength: 30
+    },
+    {
+      name: 'grp',
+      listPosition: 3,
+      formPosition: 3,
+      type: 'string',
+      default: '',
+      label: 'Group',
+      fieldMd: 4,
       maxlength: 30
     },
     {
       name: 'descr',
       listPosition: 0,
-      formPosition: 3,
+      formPosition: 4,
       type: 'string',
       default: '',
       label: 'Descr',
@@ -40,8 +48,8 @@ const format = {
     },
     {
       name: 'active',
-      listPosition:3,
-      formPosition: 4,
+      listPosition:4,
+      formPosition: 5,
       type: 'boolean',
       default: true,
       required: true,
@@ -50,8 +58,8 @@ const format = {
     },
     {
       name: 'tenant_cod',
-      listPosition: 4,
-      formPosition: 5,
+      listPosition: 0,
+      formPosition: 6,
       type: 'select',
       default: 'default',
       required: true,
