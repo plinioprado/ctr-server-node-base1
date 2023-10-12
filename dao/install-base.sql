@@ -12,18 +12,20 @@ INSERT INTO ctr.tenant (cod, "name")
 VALUES ('default','Example Ltd.');
 
 CREATE TABLE IF NOT EXISTS ctr.setting (
-  cod VARCHAR(30) PRIMARY KEY,
-  "name" VARCHAR(30) NOT NULL,
+  "key" VARCHAR(30) PRIMARY KEY,
+  "value" VARCHAR(30) NOT NULL,
+  grp VARCHAR(30),
   descr VARCHAR(60) DEFAULT '',
   active BOOLEAN DEFAULT TRUE
 );
 
-ALTER TABLE ctr.setting ADD COLUMN tenant_cod VARCHAR(9) DEFAULT 'default'; 
+ALTER TABLE ctr.setting ADD COLUMN tenant_cod VARCHAR(9) DEFAULT 'default';
 ALTER TABLE ctr.setting ADD FOREIGN KEY (tenant_cod)
   REFERENCES ctr.tenant(cod);
 
-INSERT INTO ctr.setting (cod, "name")
-VALUES ('lang', 'en');
+INSERT INTO ctr.setting ("key", "value", grp)
+VALUES ('lang', 'en', '');
+
 
 CREATE TABLE IF NOT EXISTS ctr.role (
   cod VARCHAR(6) PRIMARY KEY,

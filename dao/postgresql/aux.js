@@ -9,10 +9,10 @@ const getList = async (table, primaryFieldName, fieldNameList) => {
     logger.log(`dao ${table} will get list`);
 
     const fieldNameText = getFieldNameText(fieldNameList)
-    const queryText = `SELECT ${fieldNameText} FROM ctr.${table} ORDER BY ${primaryFieldName}`;
-    logger.log(`dao ${table} queryText is ${queryText}`);
+    const text = `SELECT ${fieldNameText} FROM ctr.${table} ORDER BY ${primaryFieldName}`;
+    logger.log(`dao ${table} queryText is ${text}`);
 
-    const result = await runQuery(queryText);
+    const result = await runQuery(text);
     logger.log(`dao ${table} did get list`, JSON.stringify(result));
 
     return result.rows;
@@ -178,17 +178,20 @@ const runScript = async (fileName) => {
 }
 
 const runQuery = async (text, values = []) => {
-  const { Pool } = require('pg');
+  const  { Client } = require('pg');
 
-  const pool = new Pool({
-    user: process.env.PG_USER,
+  const client = new Client({
     host: process.env.PG_HOST,
+    port: process.env.PG_PORT,
     database: process.env.PG_DATABASE,
+    user: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT
   });
 
-  const result = await pool.query(text, values);
+  await client.connect();
+  const result = await client.query(text, values)
+  await client.end()
+
   return result;
 }
 

@@ -7,9 +7,7 @@
     "session": "crud",
     "country": "crud",
     "install": "crud",
-    "currency": "crud",
-    "person": "crud",
-    "invoice": "crud"
+    "currency": "crud"
   },
   "admin": {
     "role": "crud",
@@ -19,9 +17,7 @@
     "session": "r",
     "country": "crud",
     "install": "crud",
-    "currency": "crud",
-    "person": "crud",
-    "invoice": "crud"
+    "currency": "crud"
   },
   "user": {
     "role": "r",
@@ -30,9 +26,7 @@
     "user": "r",
     "session": "r",
     "country": "r",
-    "currency": "r",
-    "person": "crud",
-    "invoice": "crud"
+    "currency": "r"
   },
   "guest": {
     "role": "r",
@@ -41,8 +35,6 @@
     "user": "r",
     "session": "r",
     "country": "r",
-    "currency": "r",
-    "person": "r",
-    "invoice": "r"
+    "currency": "r"
   }
 }

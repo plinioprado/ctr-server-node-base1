@@ -14,19 +14,19 @@ const login = async (email, pass) => {
     logger.log(`controller will login with ${email}/${pass}`);
     const resultData = await dao.login(email, pass);
     const token = staticSettings.auth.token;
+    const selectOptions = await getSelectioOptions();
 
-    data = {
-      data: {
-        user_id: resultData.user_id,
-        user_name: resultData.user_name,
-        user_role: resultData.user_role,
-        auth_access: JSON.stringify(getAccess(resultData.user_role)),
-        auth_token: token
-      }
-    };
+    const data = {
+      user_id: resultData.user_id,
+      user_name: resultData.user_name,
+      user_role: resultData.user_role,
+      auth_access: JSON.stringify(getAccess(resultData.user_role)),
+      auth_token: token,
+      selectOptions: selectOptions
+    }
 
     logger.log(`controller did login and session: ${JSON.stringify(data)}`);
-    return data;
+    return { data: data };
 
   } catch (err) {
     logger.log(`login did fail: ${err}`);
@@ -66,6 +66,20 @@ const checkAccess = async (url, authorization, method) => {
     logger.log(err);
     throw err;
   }
+}
+
+const getSelectioOptions =  async () => {
+  const tables = staticSettings.selectOptions;
+
+  let list = {};
+  for (table in tables) {
+    const ctrName = tables[table];
+    const ctr = require(`./${ctrName}`);
+    const tableOptions = await ctr.getOptionList(table);
+    list[table] = tableOptions.data;
+  }
+
+  return list;
 }
 
 module.exports = {
