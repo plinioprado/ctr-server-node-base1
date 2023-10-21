@@ -39,7 +39,7 @@ const format = {
     },
     {
       name: 'cod_numeric',
-      type: 'number',
+      type: 'integer',
       default: 0,
       label: 'Numeric code',
       listPosition: 4,
@@ -48,7 +48,7 @@ const format = {
     },
     {
       name: 'minorunit',
-      type: 'number',
+      type: 'integer',
       default: 2,
       label: 'Minor unit',
       listPosition: 5,

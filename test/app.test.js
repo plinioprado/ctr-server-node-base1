@@ -17,7 +17,8 @@ describe('login', () => {
         .post('/api/login')
         .send({
           email: 'admin@example.com',
-          pass: '12345'
+          pass: '12345',
+          tenant: 'default'
         });
 
     expect(response.status).toEqual(200);

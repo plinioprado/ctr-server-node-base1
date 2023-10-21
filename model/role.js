@@ -13,7 +13,7 @@ const format = {
         label: 'Cod',
         fieldMd: 6,
         minlength: 3,
-        maxlength: 6
+        maxlength: 9
       },
       {
         name: 'name',
