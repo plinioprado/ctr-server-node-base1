@@ -142,23 +142,33 @@ const getUserRoleById = async (id) => {
   }
 };
 
-const login = async (email, pass) => {
+const login = async (email, pass, tenant) => {
   try {
-    const queryText = `SELECT
-        ctr.user.id AS user_id,
-        ctr.user.name AS user_name,
-        ctr.user.active AS user_active,
-        ctr.user.role_cod AS user_role,
-        ctr.role.active AS role_active
-      FROM ctr.user INNER JOIN ctr.role ON ctr.role.cod = ctr.user.role_cod
-      WHERE ctr.user.email = '${email}' AND ctr.user.pass = '${pass}';`;
-    logger.log(`dao login will query: ${queryText}`);
+    const values = [email, pass, tenant];
+    const text = `SELECT
+        u.id AS user_id,
+        u.name AS user_name,
+        u.active AS user_active,
+        u.role_cod AS user_role,
+        u.tenant_cod AS tenant_cod,
+        r.active AS role_active,
+        t.name AS tenant_name,
+        t.active AS tenant_active
+      FROM ctr.user u
+      INNER JOIN ctr.role r ON r.cod = u.role_cod
+      INNER JOIN ctr.tenant t ON t.cod = u.tenant_cod
+      WHERE
+        u.email = $1
+        AND u.pass = $2
+        AND u.tenant_cod = $3;`;
+    logger.log(`dao login will query: ${text}`);
 
-    const result = await runQuery(queryText);
+    const result = await runQuery(text, values);
 
     if (result.rows.length === 0) throw 'Not found';
     if (!result.rows[0].user_active) throw 'User not active';
     if (!result.rows[0].role_active) throw 'Role not active';
+    if (!result.rows[0].tenant_active) throw 'Tenant not active';
 
     return result.rows[0];
   } catch (err) {

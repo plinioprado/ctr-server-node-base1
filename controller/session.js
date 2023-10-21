@@ -9,10 +9,10 @@ const getAccess = (role) => {
   return access[role];
 }
 
-const login = async (email, pass) => {
+const login = async (email, pass, tenant) => {
   try {
-    logger.log(`controller will login with ${email}/${pass}`);
-    const resultData = await dao.login(email, pass);
+    logger.log(`controller will login with ${email}/${pass}/${tenant}`);
+    const resultData = await dao.login(email, pass, tenant);
     const token = staticSettings.auth.token;
     const selectOptions = await getSelectioOptions();
 
@@ -22,6 +22,8 @@ const login = async (email, pass) => {
       user_role: resultData.user_role,
       auth_access: JSON.stringify(getAccess(resultData.user_role)),
       auth_token: token,
+      tenant_cod: resultData.tenant_cod,
+      tenant_name: resultData.tenant_name,
       selectOptions: selectOptions
     }
 

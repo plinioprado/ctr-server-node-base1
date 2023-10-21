@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS ctr.tenant (
 );
 
 INSERT INTO ctr.tenant (cod, "name")
-VALUES ('default','Example Ltd.');
+VALUES ('default','Example Ltd.'), ('demo','Demo Ltd.');
 
 CREATE TABLE IF NOT EXISTS ctr.setting (
   "key" VARCHAR(30) PRIMARY KEY,
